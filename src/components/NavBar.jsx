@@ -1,3 +1,5 @@
+import Link from "next/link"; // Add this import
+
 const NavBar = () => {
   return (
     <>
@@ -6,6 +8,8 @@ const NavBar = () => {
                 <div className="grid grid-cols-2 border border-white/16 rounded-full py-2 px-4">
                     <div>logo</div>
                     <div>icon</div>
+                    <Link href={"/about"}>about</Link>
+                    <Link href={"/predict"}>about</Link>
                 </div>
             </div>
         </section>
