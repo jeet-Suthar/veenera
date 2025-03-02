@@ -1,0 +1,124 @@
+/* TestimonialSlider.module.css */
+.testimonialContainer {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 8px;
+  }
+  
+  .light {
+    background-color: #f5f5f5;
+    color: #333;
+  }
+  
+  .dark {
+    background-color: #1a1a1a;
+    color: #fff;
+  }
+  
+  .title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: 600;
+    color: inherit;
+  }
+  
+  .sliderWrapper {
+    position: relative;
+    overflow: hidden; /* Ensure slider content stays within bounds */
+  }
+  
+  .slider {
+    position: relative;
+  }
+  
+  .testimonialCard {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    margin: 0 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    height: 100%; /* Ensure consistent height */
+  }
+  
+  .testimonialCard:hover {
+    transform: translateY(-5px);
+  }
+  
+  .dark .testimonialCard {
+    background: rgba(40, 40, 40, 0.8);
+  }
+  
+  .profileImage {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 20px;
+    display: block;
+    border: 3px solid #fff;
+  }
+  
+  .dark .profileImage {
+    border-color: #1a1a1a;
+  }
+  
+  .quote {
+    font-style: italic;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: inherit;
+    text-align: center;
+    min-height: 80px; /* Ensure quotes have consistent height */
+  }
+  
+  .name {
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+    color: inherit;
+  }
+  
+  /* Ensure the slider arrows are styled */
+  .slick-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    font-size: 0;
+    line-height: 0;
+    border: none;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .slick-arrow:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  .slick-prev {
+    left: -40px;
+  }
+  
+  .slick-next {
+    right: -40px;
+  }
+  
+  /* Hide arrows on small screens if desired */
+  @media (max-width: 768px) {
+    .slick-arrow {
+      display: none !important;
+    }
+  }
+  
+  /* Ensure content is visible */
+  .testimonialCard, .profileImage, .quote, .name {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }

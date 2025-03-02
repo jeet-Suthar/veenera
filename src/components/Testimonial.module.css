@@ -1,0 +1,22 @@
+.gradient-background {
+    background: linear-gradient(
+      45deg,
+      #4a0048, /* Darkest purple */
+      #2d003b, /* Slightly lighter purple */
+      #1a001f  /* Even darker purple */
+    );
+    background-size: 200% 200%;
+    animation: gradientShift 10s ease infinite;
+  }
+  
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
