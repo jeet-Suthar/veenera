@@ -34,7 +34,7 @@ export default function Predict() {
     formData.append("file", image);
 
     try {
-      const response = await fetch("http://34.42.121.131:5000/predict", {
+      const response = await fetch("https://8260-34-42-121-131.ngrok-free.app/predict", {
         method: "POST",
         body: formData,
       });
