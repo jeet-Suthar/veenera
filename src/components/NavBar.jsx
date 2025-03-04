@@ -40,7 +40,7 @@ const NavBar = () => {
     
     {/* Veneera Text with Gradient */}
     <span className="text-3xl ml-2 font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-     Veneera
+     Veenera
     </span>
   </Link>
 </div>

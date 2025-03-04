@@ -5,7 +5,7 @@ import { useDropzone } from "react-dropzone";
 import { motion } from "framer-motion";
 import { Footer } from "@/components/Footer";
 import NavBar from "@/components/NavBar";
-import { Loader2, Upload } from "lucide-react";
+import { Loader2, Upload, Plus } from "lucide-react";
 
 const SHAPES = ["natural", "hollywood", "cannie", "oval", "celebrity"];
 const COLORS = ["Pearl White", "Ivory", "Natural Beige", "Soft Gray", "Bright White"];
@@ -17,6 +17,10 @@ export default function Predict() {
   const [error, setError] = useState(null);
   const [shape, setShape] = useState("natural");
   const [color, setColor] = useState(COLORS[0]);
+  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [inferenceSteps, setInferenceSteps] = useState(69);
+  const [guidanceScale, setGuidanceScale] = useState(8.0);
+  const [strength, setStrength] = useState(0.8);
   const { theme } = useTheme();
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -43,6 +47,9 @@ export default function Predict() {
     formData.append("file", image);
     formData.append("shape", shape);
     formData.append("color", color);
+    formData.append("inference_steps", inferenceSteps);
+    formData.append("guidance_scale", guidanceScale);
+    formData.append("strength", strength);
 
     try {
       const response = await fetch("https://e649-34-42-121-131.ngrok-free.app/predict", {
@@ -74,19 +81,24 @@ export default function Predict() {
           transition={{ duration: 0.8 }}
           className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md w-full max-w-xl"
         >
-          <h2 className="text-2xl font-semibold text-center text-gray-900 dark:text-white mb-4">
-            Predict with Veenera AI
-          </h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div
-              {...getRootProps()}
-              className="border-dashed border-2 border-gray-300 dark:border-gray-600 p-6 text-center cursor-pointer rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Predict with Veenera AI</h2>
+            <button
+              className="px-3 py-2 rounded-full bg-gray-200 dark:bg-gray-700 flex align-middle hover:bg-gray-300 dark:hover:bg-gray-600"
+              onClick={() => setShowAdvanced(!showAdvanced)}
             >
+              Pro
+              <Plus className="h-4 w-4 text-gray-900 dark:text-white" />
+            </button>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div {...getRootProps()} className="border-dashed border-2 border-gray-300 dark:border-gray-600 p-6 text-center cursor-pointer rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
               <input {...getInputProps()} />
               <Upload className="mx-auto h-12 w-12 text-gray-500" />
               <p className="text-gray-700 dark:text-gray-300 mt-2">Drag & Drop an image here, or click to select one</p>
             </div>
-
+            
             {image && (
               <motion.img
                 initial={{ scale: 0.9, opacity: 0 }}
@@ -100,19 +112,14 @@ export default function Predict() {
             <div className="text-sm text-gray-700 dark:text-gray-300 pb-4">
               <li>Image should have both upper and lower teeth visible. </li>
               <li>Cannie is <span className="text-red-600">Beta</span> Feature</li>
-
             </div>
+
             {/* Shape Selection */}
             <div>
               <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Veneer Shape</h3>
               <div className="flex flex-wrap gap-2">
                 {SHAPES.map((s) => (
-                  <button
-                    key={s}
-                    type="button"
-                    className={`px-4 py-2 rounded-lg text-sm transition ${shape === s ? "bg-indigo-500 text-white" : "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white"}`}
-                    onClick={() => setShape(s)}
-                  >
+                  <button key={s} type="button" className={`px-4 py-2 rounded-lg text-sm transition ${shape === s ? "bg-indigo-500 text-white" : "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white"}`} onClick={() => setShape(s)}>
                     {s.charAt(0).toUpperCase() + s.slice(1)}
                   </button>
                 ))}
@@ -124,18 +131,44 @@ export default function Predict() {
               <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Veneer Color</h3>
               <div className="flex flex-wrap gap-2">
                 {COLORS.map((c) => (
-                  <button
-                    key={c}
-                    type="button"
-                    className={`px-4 py-2 rounded-lg text-sm transition ${color === c ? "bg-indigo-500 text-white" : "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white"}`}
-                    onClick={() => setColor(c)}
-                  >
+                  <button key={c} type="button" className={`px-4 py-2 rounded-lg text-sm transition ${color === c ? "bg-indigo-500 text-white" : "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white"}`} onClick={() => setColor(c)}>
                     {c}
                   </button>
                 ))}
               </div>
             </div>
 
+            {/* Advanced Settings */}
+            {showAdvanced && (
+              <div className="p-4 bg-gray-200 dark:bg-gray-700 rounded-lg">
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Advanced Inference Settings</h3>
+                
+                <div className="mb-4">
+                  <label className="block text-gray-700 dark:text-gray-300">Inference Steps: {inferenceSteps}</label>
+                  <input type="range" min="10" max="100" value={inferenceSteps} onChange={(e) => setInferenceSteps(parseInt(e.target.value))} className="w-full" />
+                  <p className="text-s text-gray-600 dark:text-gray-400 mt-1">
+                    Controls the number of steps the AI takes to refine the image. Higher values improve detail and quality but take longer.
+                  </p>
+                </div>
+
+                <div className="mb-4">
+                  <label className="block text-gray-700 dark:text-gray-300">Guidance Scale: {guidanceScale}</label>
+                  <input type="range" min="1" max="20" step="0.1" value={guidanceScale} onChange={(e) => setGuidanceScale(parseFloat(e.target.value))} className="w-full" />
+                  <p className="text-s text-gray-600 dark:text-gray-400 mt-1">
+                    Determines how closely the AI follows your shape and color inputs. Higher values enforce stricter adherence, while lower values allow more creativity.
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-gray-700 dark:text-gray-300">Strength: {strength}</label>
+                  <input type="range" min="0" max="1" step="0.05" value={strength} onChange={(e) => setStrength(parseFloat(e.target.value))} className="w-full" />
+                  <p className="text-s text-gray-600 dark:text-gray-400 mt-1">
+                    Adjusts how much the AI alters the original teeth. Lower values preserve more of the original image, while higher values apply stronger veneer effects.
+                  </p>
+                </div>
+              </div>
+            )}
+            
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

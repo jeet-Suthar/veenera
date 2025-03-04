@@ -13,7 +13,7 @@ export function Footer() {
           {/* Company Info (Veneera AI with Gradient) */}
           <div>
             <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-purple-800 to-purple-950 bg-clip-text text-transparent">
-              Veneera AI
+              Veenera AI
             </h3>
             <p className="text-gray-400 text-sm">
               Empowering dental professionals with AI-driven SaaS solutions for precise diagnostics and patient care.
