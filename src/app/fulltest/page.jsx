@@ -79,7 +79,7 @@ export default function Predict() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md w-full max-w-xl"
+          className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md w-full max-w-xl divbutton"
         >
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Predict with Veenera AI</h2>
