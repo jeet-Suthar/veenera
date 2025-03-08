@@ -31,7 +31,7 @@ export default function About() {
             About Veneera AI
           </h1>
           <p className="text-lg md:text-xl max-w-2xl font-light text-gray-700 dark:text-gray-400">
-            Pioneering the future of dental aesthetics with AI-driven precision and elegance.
+            Pioneering the future the of dental aesthetics with AI-driven precision and elegance.
           </p>
         </motion.section>
 
