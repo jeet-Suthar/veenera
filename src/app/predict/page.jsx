@@ -8,7 +8,13 @@ import NavBar from "@/components/NavBar";
 import { Loader2, Upload } from "lucide-react";
 
 const SHAPES = ["natural", "hollywood", "cannie", "oval", "celebrity"];
-const COLORS = ["Pearl White", "Ivory", "Natural Beige", "Soft Gray", "Bright White"];
+const COLORS = [
+  "Pearl White",
+  "Ivory",
+  "Natural Beige",
+  "Soft Gray",
+  "Bright White",
+];
 
 export default function Predict() {
   const [image, setImage] = useState(null);
@@ -40,12 +46,12 @@ export default function Predict() {
     setLoading(true);
     setError(null);
     const formData = new FormData();
-    formData.append("file", image);
+    formData.append("image", image);
     formData.append("shape", shape);
     formData.append("color", color);
 
     try {
-      const response = await fetch("https://e649-34-42-121-131.ngrok-free.app/predict", {
+      const response = await fetch("https://c531-3-238-118-170.ngrok-free.app/generate", {
         method: "POST",
         body: formData,
       });
@@ -84,7 +90,9 @@ export default function Predict() {
             >
               <input {...getInputProps()} />
               <Upload className="mx-auto h-12 w-12 text-gray-500" />
-              <p className="text-gray-700 dark:text-gray-300 mt-2">Drag & Drop an image here, or click to select one</p>
+              <p className="text-gray-700 dark:text-gray-300 mt-2">
+                Drag & Drop an image here, or click to select one
+              </p>
             </div>
 
             {image && (
@@ -99,18 +107,25 @@ export default function Predict() {
             )}
             <div className="text-sm text-gray-700 dark:text-gray-300 pb-4">
               <li>Image should have both upper and lower teeth visible. </li>
-              <li>Cannie is <span className="text-red-600">Beta</span> Feature</li>
-
+              <li>
+                Cannie is <span className="text-red-600">Beta</span> Feature
+              </li>
             </div>
             {/* Shape Selection */}
             <div>
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Veneer Shape</h3>
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Veneer Shape
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {SHAPES.map((s) => (
                   <button
                     key={s}
                     type="button"
-                    className={`px-4 py-2 rounded-lg text-sm transition ${shape === s ? "bg-indigo-500 text-white" : "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white"}`}
+                    className={`px-4 py-2 rounded-lg text-sm transition ${
+                      shape === s
+                        ? "bg-indigo-500 text-white"
+                        : "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white"
+                    }`}
                     onClick={() => setShape(s)}
                   >
                     {s.charAt(0).toUpperCase() + s.slice(1)}
@@ -121,13 +136,19 @@ export default function Predict() {
 
             {/* Color Selection */}
             <div>
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Veneer Color</h3>
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Veneer Color
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {COLORS.map((c) => (
                   <button
                     key={c}
                     type="button"
-                    className={`px-4 py-2 rounded-lg text-sm transition ${color === c ? "bg-indigo-500 text-white" : "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white"}`}
+                    className={`px-4 py-2 rounded-lg text-sm transition ${
+                      color === c
+                        ? "bg-indigo-500 text-white"
+                        : "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white"
+                    }`}
                     onClick={() => setColor(c)}
                   >
                     {c}
@@ -143,15 +164,28 @@ export default function Predict() {
               className="bg-indigo-500 text-white px-5 py-3 rounded-lg w-full text-center flex justify-center items-center"
               disabled={loading}
             >
-              {loading ? <Loader2 className="animate-spin h-5 w-5 mr-2" /> : "Upload & Predict"}
+              {loading ? (
+                <Loader2 className="animate-spin h-5 w-5 mr-2" />
+              ) : (
+                "Upload & Predict"
+              )}
             </motion.button>
 
-            {error && <p className="text-red-500 text-center text-sm">{error}</p>}
+            {error && (
+              <p className="text-red-500 text-center text-sm">
+                {error.status === 500
+                  ? "Server busy, try again later!"
+                  
+                  : error.message || "Server busy, try again later!"}
+              </p>
+            )}
           </form>
 
           {outputImage && (
             <div className="mt-6 text-center">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Prediction Result</h3>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                Prediction Result
+              </h3>
               <img
                 src={outputImage}
                 alt="Predicted Output"
