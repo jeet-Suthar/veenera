@@ -11,10 +11,8 @@ const SHAPES = ["natural", "hollywood", "cannie", "oval", "celebrity"];
 const COLORS = [
   "Pearl White",
   "Ivory",
-  "Natural Beige",
-  "Soft Gray",
-  "Bright White",
-];
+  "bleach white",
+  "Natural Beige"];
 
 export default function Predict() {
   const [image, setImage] = useState(null);
