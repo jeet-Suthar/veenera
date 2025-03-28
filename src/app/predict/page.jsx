@@ -92,8 +92,9 @@ export default function Predict() {
               className="border-dashed border-2 border-gray-300 dark:border-gray-600 p-8 text-center cursor-pointer rounded-md bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition"
             >
               <input {...getInputProps()} />
-              <Upload className="mx-auto h-16 w-16 text-gray-500" />
-              <p className="text-lg text-gray-700 dark:text-gray-300 mt-2">Drag & Drop an image here, or click to select one</p>
+              <Upload className="mx-auto h-12 w-16 text-gray-500" />
+              <p className="text-lg font-medium text-gray-900 dark:text-white mt-4">Upload</p>
+              <p className="text-md text-gray-700 dark:text-gray-300 mt-2">For best results, use a clear frontal photo of your face with a natural smile showing your teeth</p>
             </div>
             {image && (
               <img
@@ -175,16 +176,3 @@ export default function Predict() {
     </>
   );
 }
-{/* <div className="mt-6 text-center">
-<h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Prediction Result</h3>
-<div className="grid grid-cols-2 gap-4">
-  {outputImages.map((img, index) => img && (
-    <div key={index} className="relative group">
-      <img src={img} alt="Predicted Output" className="w-full rounded-lg border border-gray-300 dark:border-gray-600" />
-      <a href={img} download={`output-${index}.png`} className="absolute top-2 right-2 hidden group-hover:block bg-black bg-opacity-50 p-2 rounded-full text-white">
-        <Download className="w-5 h-5" />
-      </a>
-    </div>
-  ))}
-</div>
-</div> */}
